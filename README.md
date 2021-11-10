@@ -11,7 +11,7 @@ Program ma posiadać następujące opcje:
 * aplikacja przyjmuje zgłoszenia śmieci z wybranej lokalizacji
 * aplikacja pokazuje na mapie punkty zaśmiecone
 * (?)aplikacja pozwala na usunięcie miejsca zaśmieconego - posprzątanie
-* aplikacja pozwala na potwierdzenie/zgłoszenie fałszywego alarmu
+* aplikacja pozwala na potwierdzenie/zdementowanie
 # Schemat działania rozwiązania (???)
 # Wybrany stos technologiczny
 * Azure Maps
