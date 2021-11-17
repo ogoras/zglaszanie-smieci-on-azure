@@ -34,24 +34,21 @@ function GetMap() {
     //Wait until the map resources are ready.
     map.events.add('ready', function () {
 
-        map.events.add('click', function (e) {
+        map.events.add('click',function (e) {
             var marker = new atlas.HtmlMarker({
                 color: 'DodgerBlue',
                 text: '10',
                 position: [e.position[0], e.position[1]],
                 popup: new atlas.Popup({
-                    content: '<div style="padding:10px">Hello World</div>',
+                    content: '<div style="padding:10px; color: black">Hello World</div>',
                     pixelOffset: [0, -30]
                 })
             });
-
-            map.markers.add(marker);
-
             //Add a click event to toggle the popup.
-            map.events.add('click', marker, () => {
+            map.events.add('contextmenu', marker, () => {
                 marker.togglePopup();
             });
-        })
-
+            map.markers.add(marker);
+        });
     });
 }
