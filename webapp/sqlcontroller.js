@@ -17,17 +17,17 @@ const config = {
 };
 
 // Attempt to connect and execute queries if connection goes through
-addReport('Warsaw', (id) => {
-  console.log("ID: " + id);
-});
-addReport('Lodz', (id) => {
-  console.log("ID: " + id);
-},
-0);
-addReport('Katowice', (id) => {
-  console.log("ID: " + id);
-},
-1);
+// addReport('Warsaw', (id) => {
+//   console.log("ID: " + id);
+// });
+// addReport('Lodz', (id) => {
+//   console.log("ID: " + id);
+// },
+// 0);
+// addReport('Katowice', (id) => {
+//   console.log("ID: " + id);
+// },
+// 1);
 
 function addReport(coordinates, callback, state = 0) {
   const connection = new Connection(config);
@@ -82,7 +82,7 @@ function getAllReports(callback) {
 
 }
 
-module.exports() = {
+module.exports = {
   addReport,
   removeReport,
   updateReport,
