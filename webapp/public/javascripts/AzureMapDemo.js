@@ -42,18 +42,45 @@ function GetMap() {
     map.events.add('ready', function () {
         map.events.add('click', function (e) {
             function createMarker(){
-                var marker = new atlas.HtmlMarker({
-                    color: 'red',
-                    position: [e.position[0], e.position[1]],
-                    popup: new atlas.Popup({
-                        content: '<div style="padding:10px; color: black;"><input type="radio" id="trashed" name="state" value="Trashed"><label for="trashed">Trashed</label><br><input type="radio" id="tbcleaned" name="state" value="Cleaned"><label for="tbcleaned">To be cleaned</label><br><input type="radio" id="cleaned" name="state" value="cleaned"><label for="cleaned">Clean</label><br><button type="button" class="applyButton">Save</button></div>',
-                        pixelOffset: [0, -30]
-                    }),
-                });
-                var applyChanges = function(){
-
-                    var popup = marker.getOptions().popup;
-                    var radios = htmlToElement(popup.getOptions().content).querySelectorAll('input[type="name"]');
+                radio = e.position[0].toString().concat(e.position[1].toString());
+                var content = document.createElement('div');
+                content.style.setProperty('padding', '15px');
+                content.style.setProperty('color', 'black');
+                var option1 = document.createElement('input');
+                option1.type = 'radio';
+                option1.id = 'littered';
+                option1.name = radio;
+                content.appendChild(option1);
+                var label1 = document.createElement('label');
+                label1.setAttribute('for','littered')
+                label1.innerText = 'Littered';
+                content.appendChild(label1);
+                content.appendChild(document.createElement('br'));
+                var option2 = document.createElement('input');
+                option2.type = 'radio';
+                option2.id = 'tbcleaned';
+                option2.name = radio;
+                content.appendChild(option2);
+                var label2 = document.createElement('label');
+                label2.setAttribute('for','tbcleaned')
+                label2.innerText = 'To Be cleaned';
+                content.appendChild(label2);
+                content.appendChild(document.createElement('br'));
+                var option3 = document.createElement('input');
+                option3.type = 'radio';
+                option3.id = 'cleaned';
+                option3.name = radio;
+                content.appendChild(option3);
+                var label3 = document.createElement('label');
+                label3.setAttribute('for','cleaned')
+                label3.innerText = 'Cleaned';
+                content.appendChild(label3);
+                content.appendChild(document.createElement('br'));
+                var saveButton = document.createElement('input');
+                saveButton.type = 'button';
+                saveButton.value = 'Save';
+                saveButton.addEventListener('click', function(){
+                    var radios = content.querySelectorAll('input[type=radio]');
                     if(radios[0].checked){
                         marker.setOptions({color: 'red'});
                     } else if(radios[1].checked){
@@ -62,7 +89,16 @@ function GetMap() {
                         marker.setOptions({color: 'green'});
                     }
                     marker.togglePopup();
-                }
+                });
+                content.appendChild(saveButton);
+                var marker = new atlas.HtmlMarker({
+                    color: 'red',
+                    position: [e.position[0], e.position[1]],
+                    popup: new atlas.Popup({
+                        content: content,
+                        pixelOffset: [0, -30]
+                    }),
+                });
                 map.events.add('contextmenu', marker, () => {
                     marker.togglePopup();
                     var applyButtons = document.getElementsByClassName("applyButton");
@@ -74,11 +110,12 @@ function GetMap() {
             }
             var popupContent = document.createElement('div');
             popupContent.innerHTML = "Is this place littered?<br>";
-            popupContent.style.setProperty('padding', '10px');
+            popupContent.style.setProperty('padding', '15px');
             popupContent.style.setProperty('color', 'black');
             var yesButton = document.createElement('input');
             yesButton.type = 'button';
             yesButton.value = 'Yes';
+            yesButton.style.setProperty('margin-right', '10px');
             var noButton = document.createElement('input');
             noButton.type = 'button';
             noButton.value = 'No';
