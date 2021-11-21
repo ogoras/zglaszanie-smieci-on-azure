@@ -17,9 +17,7 @@ const config = {
 };
 
 // Attempt to connect and execute queries if connection goes through
-getAllReports((points_list) => {
-  console.log(points_list);
-});
+//removeReport(3);
 
 function addReport(coordinates, callback, state = 0) {
   const connection = new Connection(config);
@@ -59,7 +57,27 @@ function addReport(coordinates, callback, state = 0) {
 }
 
 function removeReport(id) {
+  const connection = new Connection(config);
 
+  connection.on("connect", err => {
+      if (err) {
+        console.error(err.message);
+      } else {
+      const request = new Request(
+        `DELETE FROM LitterReportsTable WHERE Id=@Id;`,
+        (err) => {
+          if (err) {
+            console.error(err.message);
+          }
+        }
+      );
+      request.addParameter('Id', TYPES.Int, id);
+
+      connection.execSql(request);
+    }
+  });
+
+  connection.connect();
 }
 
 function updateReport(id, state, coordinates = undefined){

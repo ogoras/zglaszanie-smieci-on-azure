@@ -24,4 +24,9 @@ router.post('/', function(req, res) {
     state);
 });
 
+router.delete('/:id', function(req, res) {
+    sqlcontroller.removeReport(req.params.id);
+    res.send({ message: 'Point removed.' });
+});
+
 module.exports = router;
