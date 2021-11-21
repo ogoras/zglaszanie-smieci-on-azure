@@ -120,7 +120,48 @@ function updateReport(id, state, coordinates = undefined){
 }
 
 function getReport(id, callback) {
+  const connection = new Connection(config);
 
+  connection.on("connect", err => {
+      if (err) {
+        console.error(err.message);
+      } else {
+      const request = new Request(
+        `SELECT * FROM LitterReportsTable WHERE Id=@Id;`,
+        (err) => {
+          if (err) {
+            console.error(err.message);
+          }
+        }
+      );
+
+      request.addParameter('Id', TYPES.Int, id);
+      
+      var exists = false;
+      request.on("row", columns => {
+        const properties = [];
+
+        columns.forEach(column => {
+          if (column.value === null) {
+            properties[properties.length] = undefined;
+          } else {
+            properties[properties.length] = column.value;
+          }
+        });
+        callback({id:properties[0], state:properties[1], coordinates:properties[2]});
+        exists = true;
+      });
+
+      request.on("requestCompleted", () => {
+        if(!exists)
+          callback(null);
+      })
+
+      connection.execSql(request);
+    }
+  });
+
+  connection.connect();
 }
 
 function getAllReports(callback) {

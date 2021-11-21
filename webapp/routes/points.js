@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var sqlcontroller = require('../sqlcontroller');
+var createError = require('http-errors');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -8,6 +9,18 @@ router.get('/', function(req, res, next) {
         res.writeHead(200, {'Content-Type': 'application/json'});
         res.write(JSON.stringify(pointslist));
         res.end();
+    })
+});
+
+router.get('/:id', function(req, res, next) {
+    sqlcontroller.getReport(req.params.id, (point) => {
+        if (!point) {
+            next(createError(404));
+        } else {
+            res.writeHead(200, {'Content-Type': 'application/json'});
+            res.write(JSON.stringify(point));
+            res.end();
+        }
     })
 });
 
