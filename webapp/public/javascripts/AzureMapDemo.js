@@ -34,7 +34,7 @@ function GetMap() {
 
             //Alternatively, use an Azure Maps key. Get an Azure Maps key at https://azure.com/maps. NOTE: The primary key should be used as the key.
             authType: 'subscriptionKey',
-            subscriptionKey: ''
+            subscriptionKey: 'nRsz3cS2oMYuB_SWfRiGUzPujHr6hGY6mMEn4D5HLPo'
         }
     });
 
@@ -42,7 +42,7 @@ function GetMap() {
     map.events.add('ready', function () {
         map.events.add('click', function (e) {
             function createMarker(){
-                radio = e.position[0].toString().concat(e.position[1].toString());
+                radio = e.position[0].toString().concat(" ").concat(e.position[1].toString());
                 var content = document.createElement('div');
                 content.style.setProperty('padding', '15px');
                 content.style.setProperty('color', 'black');
@@ -107,6 +107,12 @@ function GetMap() {
                     }
                 });
                 map.markers.add(marker);
+                const Http = new XMLHttpRequest();
+                const url='/points'
+                Http.open("POST", url);
+                Http.setRequestHeader("Content-Type", "application/json");
+                var data = JSON.stringify({"coordinates": radio});
+                Http.send(data);
             }
             var popupContent = document.createElement('div');
             popupContent.innerHTML = "Is this place littered?<br>";
