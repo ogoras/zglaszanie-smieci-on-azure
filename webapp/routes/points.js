@@ -29,4 +29,12 @@ router.delete('/:id', function(req, res) {
     res.send({ message: 'Point removed.' });
 });
 
+router.put('/:id', function(req,res) {
+    var coordinates = req.body.coordinates;
+    var state = req.body.state;
+    var id = req.params.id;
+    sqlcontroller.updateReport(id, state, coordinates);
+    res.send({ message: 'Point updated.' });
+})
+
 module.exports = router;

@@ -81,7 +81,42 @@ function removeReport(id) {
 }
 
 function updateReport(id, state, coordinates = undefined){
+  const connection = new Connection(config);
 
+  connection.on("connect", err => {
+      if (err) {
+        console.error(err.message);
+      } else if (coordinates == undefined) {
+      const request = new Request(
+        `UPDATE LitterReportsTable SET ReportState = @ReportState WHERE Id = @Id;`,
+        (err) => {
+          if (err) {
+            console.error(err.message);
+          }
+        }
+      );
+      request.addParameter('Id', TYPES.Int, id);
+      request.addParameter('ReportState', TYPES.Int, state);
+
+      connection.execSql(request);
+    } else {
+      const request = new Request(
+        `UPDATE LitterReportsTable SET ReportState = @ReportState, Coordinates = @Coordinates WHERE Id = @Id;`,
+        (err) => {
+          if (err) {
+            console.error(err.message);
+          }
+        }
+      );
+      request.addParameter('Id', TYPES.Int, id);
+      request.addParameter('ReportState', TYPES.Int, state);
+      request.addParameter('Coordinates', TYPES.NVarChar, coordinates);
+
+      connection.execSql(request);
+    }
+  });
+
+  connection.connect();
 }
 
 function getReport(id, callback) {
