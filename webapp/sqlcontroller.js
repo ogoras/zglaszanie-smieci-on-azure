@@ -17,17 +17,9 @@ const config = {
 };
 
 // Attempt to connect and execute queries if connection goes through
-// addReport('Warsaw', (id) => {
-//   console.log("ID: " + id);
-// });
-// addReport('Lodz', (id) => {
-//   console.log("ID: " + id);
-// },
-// 0);
-// addReport('Katowice', (id) => {
-//   console.log("ID: " + id);
-// },
-// 1);
+getAllReports((points_list) => {
+  console.log(points_list);
+});
 
 function addReport(coordinates, callback, state = 0) {
   const connection = new Connection(config);
@@ -79,7 +71,47 @@ function getReport(id, callback) {
 }
 
 function getAllReports(callback) {
+  const connection = new Connection(config);
 
+  connection.on("connect", err => {
+      if (err) {
+        console.error(err.message);
+      } else {
+      var id;
+      const request = new Request(
+        `SELECT * FROM LitterReportsTable`,
+        (err) => {
+          if (err) {
+            console.error(err.message);
+          }
+        }
+      );
+      
+      const points_list = [];
+
+      request.on("row", columns => {
+        const properties = [];
+
+        columns.forEach(column => {
+          if (column.value === null) {
+            properties[properties.length] = undefined;
+          } else {
+            properties[properties.length] = column.value;
+          }
+        });
+        points_list[points_list.length] = {id:properties[0], state:properties[1], coordinates:properties[2]};
+      });
+
+      request.on("requestCompleted", () => {
+        callback(points_list);
+      })
+
+
+      connection.execSql(request);
+    }
+  });
+
+  connection.connect();
 }
 
 module.exports = {

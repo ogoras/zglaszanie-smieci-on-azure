@@ -22,6 +22,6 @@ router.post('/', function(req, res) {
         res.end();
     },
     state);
-})
+});
 
 module.exports = router;
