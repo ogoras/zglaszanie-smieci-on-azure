@@ -110,7 +110,7 @@ function GetMap() {
                                 pixelOffset: [0, -30]
                             }),})
                             marker.togglePopup();
-                            setTimeout(function(){ map.markers.remove(marker); }, 3000);
+                            setTimeout(function(){ marker.togglePopup(); map.markers.remove(marker); }, 3000);
                         } else {
                             // Oh no! There has been an error with the request!
                         }
@@ -180,7 +180,7 @@ function GetMap() {
             noButton.type = 'button';
             noButton.value = 'No';
             yesButton.addEventListener('click', function () {
-                radio = e.position[0].toString().concat(" ").concat(e.position[1].toString());
+                radio = x.toString().concat(" ").concat(y.toString());
                 const Http = new XMLHttpRequest();
                 const url = '/points'
                 Http.open("POST", url);
