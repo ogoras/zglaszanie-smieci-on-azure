@@ -110,7 +110,7 @@ function GetMap() {
                                 pixelOffset: [0, -30]
                             }),})
                             marker.togglePopup();
-                            setTimeout(function(){ marker.togglePopup(); map.markers.remove(marker); }, 3000);
+                            setTimeout(function(){ marker.getOptions().popup.close(); map.markers.remove(marker); }, 3000);
                         } else {
                             // Oh no! There has been an error with the request!
                         }
