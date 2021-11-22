@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
       res.send("Subscription key not found");
     } 
     console.log(data.toString());
-    res.render('index', { title: 'Express', subscriptionKey: data.toString() });
+    res.render('index', { title: 'Express', subscriptionKey: data.toString().trim() });
   });
 });
 
