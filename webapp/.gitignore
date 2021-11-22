@@ -59,3 +59,6 @@ typings/
 
 # next.js build output
 .next
+
+#Subscription key
+subscription_key.txt
