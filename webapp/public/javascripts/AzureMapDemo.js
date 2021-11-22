@@ -34,21 +34,14 @@ function GetMap() {
 
             //Alternatively, use an Azure Maps key. Get an Azure Maps key at https://azure.com/maps. NOTE: The primary key should be used as the key.
             authType: 'subscriptionKey',
-            subscriptionKey: 'nRsz3cS2oMYuB_SWfRiGUzPujHr6hGY6mMEn4D5HLPo'
+            subscriptionKey: ''
         }
     });
 
     //Wait until the map resources are ready.
     map.events.add('ready', function () {
-        const get = new XMLHttpRequest();
-        const url='/points'
-        get.open("GET", url);
-        get.setRequestHeader("Content-Type", "application/json");
-        get.send();
-        get.onreadystatechange = (e) => {
-            document.title = get.responseText;
-        }
         function createMarker(pos0, pos1){
+            radio = pos0.toString().concat(" ").concat(pos1.toString());
             var content = document.createElement('div');
             content.style.setProperty('padding', '15px');
             content.style.setProperty('color', 'black');
@@ -114,6 +107,19 @@ function GetMap() {
             });
             map.markers.add(marker);
         }
+        const get = new XMLHttpRequest();
+        const url='/points'
+        get.open("GET", url);
+        get.setRequestHeader("Content-Type", "application/json");
+        get.send();
+        get.onreadystatechange = (e) => {
+            allPoints = JSON.parse(get.responseText);
+            for(let i = 0; i < allPoints.length; i++){
+                positions= allPoints[i]['coordinates'].split(" ");
+                createMarker(positions[0], positions[1]);
+            }
+        }
+
         map.events.add('click', function (e) {
             function addMarker(){
                 radio = e.position[0].toString().concat(" ").concat(e.position[1].toString());
