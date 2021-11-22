@@ -34,13 +34,13 @@ function GetMap() {
 
             //Alternatively, use an Azure Maps key. Get an Azure Maps key at https://azure.com/maps. NOTE: The primary key should be used as the key.
             authType: 'subscriptionKey',
-            subscriptionKey: ''
+            subscriptionKey: 'tF7b_-8yEnI_3mhSNddYFy-mZlgH04VuV_ev2nIkAKU'
         }
     });
 
     //Wait until the map resources are ready.
     map.events.add('ready', function () {
-        function createMarker(pos0, pos1){
+        function createMarker(pos0, pos1, givenid, givenstate){
             radio = pos0.toString().concat(" ").concat(pos1.toString());
             var content = document.createElement('div');
             content.style.setProperty('padding', '15px');
@@ -83,6 +83,12 @@ function GetMap() {
                 if(radios[0].checked){
                     marker.setOptions({color: 'red'});
                 } else if(radios[1].checked){
+                    const put2 = new XMLHttpRequest();
+                    const url='/points/'.concat(marker.properties.id);
+                    put2.open("PUT", url);
+                    put2.setRequestHeader("Content-Type", "application/json");
+                    var data = JSON.stringify({"state": 1});
+                    put2.send(data);
                     marker.setOptions({color: 'orange'});
                 } else if(radios[2].checked){
                     marker.setOptions({color: 'green'});
@@ -98,6 +104,15 @@ function GetMap() {
                     pixelOffset: [0, -30]
                 }),
             });
+            marker.properties = {
+                id: givenid,
+                state: givenstate
+            }
+            if(marker.properties.state == 0){
+                marker.setOptions({color: 'red'});
+            } else if(marker.properties.state == 1){
+                marker.setOptions({color: 'orange'})
+            }
             map.events.add('contextmenu', marker, () => {
                 marker.togglePopup();
                 var applyButtons = document.getElementsByClassName("applyButton");
@@ -116,7 +131,9 @@ function GetMap() {
             allPoints = JSON.parse(get.responseText);
             for(let i = 0; i < allPoints.length; i++){
                 positions= allPoints[i]['coordinates'].split(" ");
-                createMarker(positions[0], positions[1]);
+                id = allPoints[i]['id'];
+                state = allPoints[i]['state'];
+                createMarker(positions[0], positions[1], id, state);
             }
         }
 
@@ -130,9 +147,8 @@ function GetMap() {
                 var data = JSON.stringify({"coordinates": radio});
                 Http.send(data);
                 Http.onreadystatechange = (e) => {
-                    document.title = Http.responseText;
+                    createMarker(e.position[0], e.position[1], Http.responseText, 0);
                 }
-                createMarker(e.position[0], e.position[1]);
             }
             var popupContent = document.createElement('div');
             popupContent.innerHTML = "Is this place littered?<br>";
