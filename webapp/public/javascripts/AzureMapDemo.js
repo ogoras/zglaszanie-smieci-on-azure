@@ -106,7 +106,7 @@ function GetMap() {
                         if (status === 0 || (status >= 200 && status < 400)) {
                             marker.setOptions({ color: 'green' });
                             marker.setOptions({ popup: new atlas.Popup({
-                                content: "<div style='padding: 10px; color: black;'>Dziękujemy za pomoc naszej planecie!</div>",
+                                content: "<div style='padding: 15px; color: black;'>Dziękujemy za pomoc naszej planecie!</div>",
                                 pixelOffset: [0, -30]
                             }),})
                             marker.togglePopup();
