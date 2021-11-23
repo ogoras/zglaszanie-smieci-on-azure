@@ -4,11 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Zbieranie Śmieci</title>
+    <!-- Load in the JavaScript and CSS files that has our custom control. -->
+    <link rel="stylesheet" href="../Common/scripts/azure-maps-layer-legend.min.css" type="text/css" />
+    <script src="../Common/scripts/azure-maps-layer-legend.min.js"></script>
+
     <link rel="stylesheet" href="stylesheets/mainstyle.css">
     <script src="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.js"></script>
 
-    <!-- Add references to the Azure Maps Map control JavaScript and CSS files. -->
+<!-- Add references to the Azure Maps Map control JavaScript and CSS files. -->
     <link rel="stylesheet" href="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.css" type="text/css" />
     <script src="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.js"></script>
 
@@ -21,12 +25,29 @@
     <div>
         <h1>Odśmiecanie planety</h1>
         <ul class="links">
-            <li><a href="index.html">Mapa śmieci</a></li>
-            <li><a href="ranking.html">Zgłoś śmieci</a></li>
-            <li><a href="writers.html">Posprzątaj śmieci</a></li>
-            <li><a href="partnership.html">O nas</a></li>
+            <li><a href=".">Mapa śmieci</a></li>
+            <li><a href="https://github.com/ogoras/zglaszanie-smieci-on-azure" target="_blank">O nas</a></li>
         </ul>
     </div>
     <div id="myMap"></div>
+    <legend>
+        Stany punktów
+        <p>
+            <div class="reddot"></div>
+            Punkty zaśmiecone
+        </p>
+        <p>
+            <div class="orangedot"></div>
+            Punkty, które wkrótce zostaną posprzątane
+        </p>
+        <p>
+            <div class="greendot"></div>
+            Punkty wyczyszczone
+        </p>
+    </legend>
+    <div id="description">
+        <p>Kliknij lewym przyciskiem myszy na mapę, aby zgłosić zaśmiecone miejsce</p>
+        <p>Kliknij prawym przyciskiem myszy na punkt, aby zmienić jego stan</p>
+    </div>
 </body>
 </html>
