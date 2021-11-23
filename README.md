@@ -7,7 +7,7 @@ Aplikacja webowa do zgłaszania lokalizacji śmieci stworzona z wykorzystaniem u
 <img src="docs/architecture.svg">
 
 # Demo video
-pojawi się wkrótce
+[![Link do wideo](https://img.youtube.com/vi/Fa4FXf8-xV8/0.jpg)](https://www.youtube.com/watch?v=Fa4FXf8-xV8)
 
 # Zespół
 Szymon Kuś - https://github.com/ogoras
