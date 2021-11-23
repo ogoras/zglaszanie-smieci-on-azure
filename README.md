@@ -16,13 +16,12 @@ Paweł Cegielski - https://github.com/Skokus
 Program ma posiadać następujące opcje:
 * aplikacja przyjmuje zgłoszenia śmieci z wybranej lokalizacji
 * aplikacja pokazuje na mapie punkty zaśmiecone
-* (?)aplikacja pozwala na usunięcie miejsca zaśmieconego - posprzątanie
-* aplikacja pozwala na potwierdzenie/zdementowanie
+* aplikacja pozwala na usunięcie miejsca zaśmieconego - posprzątanie
+* aplikacja pozwala na potwierdzenie/zdementowanie zgłoszenia
 
 # Schemat działania rozwiązania (???)
 
 # Wybrany stos technologiczny
-* Azure Maps
-* Azure Web Apps
-* Azure SQLDataBase
-* Vanilla javascript
+* Vanilla js
+* Node.js + Express
+* MS SQL
