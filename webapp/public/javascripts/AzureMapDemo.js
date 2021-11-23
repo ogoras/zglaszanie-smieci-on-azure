@@ -50,7 +50,7 @@ function GetMap() {
         content.appendChild(option1);
         var label1 = document.createElement('label');
         label1.setAttribute('for', 'littered')
-        label1.innerText = 'Littered';
+        label1.innerText = 'Zaśmiecone';
         content.appendChild(label1);
         content.appendChild(document.createElement('br'));
         var option2 = document.createElement('input');
@@ -60,7 +60,7 @@ function GetMap() {
         content.appendChild(option2);
         var label2 = document.createElement('label');
         label2.setAttribute('for', 'tbcleaned')
-        label2.innerText = 'To Be cleaned';
+        label2.innerText = 'Wkrótce sprzątane';
         content.appendChild(label2);
         content.appendChild(document.createElement('br'));
         var option3 = document.createElement('input');
@@ -70,12 +70,12 @@ function GetMap() {
         content.appendChild(option3);
         var label3 = document.createElement('label');
         label3.setAttribute('for', 'cleaned')
-        label3.innerText = 'Cleaned';
+        label3.innerText = 'Posprzątane';
         content.appendChild(label3);
         content.appendChild(document.createElement('br'));
         var saveButton = document.createElement('input');
         saveButton.type = 'button';
-        saveButton.value = 'Save';
+        saveButton.value = 'Zapisz';
         saveButton.addEventListener('click', function () {
             var radios = content.querySelectorAll('input[type=radio]');
             if (radios[0].checked) {
@@ -169,16 +169,16 @@ function GetMap() {
             x = e.position[0];
             y = e.position[1];
             var popupContent = document.createElement('div');
-            popupContent.innerHTML = "Is this place littered?<br>";
+            popupContent.innerHTML = "Czy to miejsce jest zaśmiecone?<br>";
             popupContent.style.setProperty('padding', '15px');
             popupContent.style.setProperty('color', 'black');
             var yesButton = document.createElement('input');
             yesButton.type = 'button';
-            yesButton.value = 'Yes';
+            yesButton.value = 'Tak';
             yesButton.style.setProperty('margin-right', '10px');
             var noButton = document.createElement('input');
             noButton.type = 'button';
-            noButton.value = 'No';
+            noButton.value = 'Nie';
             yesButton.addEventListener('click', function () {
                 radio = x.toString().concat(" ").concat(y.toString());
                 const Http = new XMLHttpRequest();
